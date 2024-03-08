@@ -1,0 +1,4 @@
+# 忽略指定项目
+
+node_modules/
+dist/
