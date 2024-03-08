@@ -5,13 +5,12 @@ import { num2, increase2 } from './conterESM';
 console.log(num);
 increase();
 console.log(num);
-// 结果是 1，1
+// 这个结果是  1，1
 
 console.log(num2);
 increase2();
 console.log(num2);
 // 结果是 1，2
-
 
 /**
  * CommonJS 导出的是值的拷贝；ES Modules 导出的是值的引用
