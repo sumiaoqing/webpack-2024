@@ -13,6 +13,16 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'commonjs'  // 输出的js格式
     },
+    resolveLoader: {
+        modules: [path.resolve(__dirname, 'loaders')]
+    },
+    module: {
+        rules: [{
+            test: /\.js$/,
+            use: ['loader-Test1'],
+            exclude: /node_modules/
+        }]
+    },
     plugins: [
         new HtmlWebpackPlugin({
             title: '测试HtmlWebpackPlugin'
