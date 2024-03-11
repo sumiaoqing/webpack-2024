@@ -12,6 +12,17 @@ increase2();
 console.log(num2);
 // 结果是 1，2
 
+console.log('test loader');
+
+
+// index.js 中我们写一个class类
+class TESTA {
+    getName() {
+        console.log('name')
+    }
+}
+
+
 /**
  * CommonJS 导出的是值的拷贝；ES Modules 导出的是值的引用
  * 简化就是CommonJS复制x给module.export[x]

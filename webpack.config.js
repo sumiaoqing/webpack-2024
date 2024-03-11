@@ -9,18 +9,24 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: 'bundle-commonjs.js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: 'commonjs'  // 输出的js格式
     },
     resolveLoader: {
-        modules: [path.resolve(__dirname, 'loaders')]
+        modules: [path.resolve(__dirname, 'loaders'),'node_modules']
     },
     module: {
         rules: [{
-            test: /\.js$/,
-            use: ['loader-Test1'],
-            exclude: /node_modules/
+            test: /\.jsx?$/,
+            use: {
+                loader: 'smq-babel-loader',
+                options: {
+                    presets: [
+                        '@babel/preset-env' // Babel-loader的预设 看作是一组 Babel 插件和/或 options 配置的可共享模块
+                    ]
+                }
+            }
         }]
     },
     plugins: [
