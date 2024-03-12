@@ -2,13 +2,13 @@
 function shallowCopy(value) {
     if (typeof value !== 'object' || value === null) return value
     let temp = {};
-    for (let key of value) {
+    for (let key in value) {
         temp[key] = value[key]
     }
     return temp
 }
 
-const obj = {
+const obj1 = {
     null: null,
     undef: undefined,
     fn() { },
@@ -18,29 +18,38 @@ const obj = {
     nan: NaN,
     arr: [1, 2, 3]
 }
-console.log(shallowCopy(obj) === obj, shallowCopy(obj));
+// console.log(shallowCopy(obj1) === obj1, shallowCopy(obj1));
 
 //深拷贝
-let temp={};
 
-function deepCopy(value,obj) {
-    for(let key of value){
-        if (typeof value[key] !== 'object' || value[key] === null){
-            obj[key]=value[key]
-        }else{
-            if(value[key] instanceof Array){
-                for(let i=0;i<value[key].length;i++){
-                    deepCopy(value[key],value)
-                }
-            }else{
-                for(let key of value[key]){
-                    deepCopy(value[key],value)
-                }
-            }
+function deepCopy(value) {
+    let newObj=Array.isArray(value)?[]:{};
+    if (typeof value !== 'object' || value === null) {
+        return value
+    } else {
+        for (let key in value) {
+            temp[key]=deepCopy(value[key]);
         }
     }
-    
-     
 }
+
+const obj2 = {
+    null: null,
+    undef: undefined,
+    fn() { },
+    obj: {
+        da: 1
+    },
+    nan: NaN,
+    arr: [{
+        obj: {
+            arrr1: [{
+                name: 'test'
+            }]
+        }
+    }]
+}
+
+console.log(deepCopy(obj2, temp))
 
 //https://juejin.cn/post/7211775653166219323
