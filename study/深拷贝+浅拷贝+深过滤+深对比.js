@@ -22,15 +22,26 @@ const obj1 = {
 
 //深拷贝
 
-function deepCopy(value) {
-    let newObj=Array.isArray(value)?[]:{};
-    if (typeof value !== 'object' || value === null) {
-        return value
+function deepCopy(obj) {
+    let newObj = Array.isArray(obj) ? [] : {};
+    if (JSON.stringify(newObj) === '{}') {
+        for (let key in obj) {
+            if (typeof obj[key] !== 'object' || typeof obj[key] === null) {
+                newObj[key] = obj[key];
+            } else {
+                newObj[key] = deepCopy(obj[key]);
+            }
+        }
     } else {
-        for (let key in value) {
-            temp[key]=deepCopy(value[key]);
+        for (let i = 0; i < obj.length; i++) {
+            if (typeof obj[i] !== 'object' || typeof obj[i] === null) {
+                newObj.push(obj[i]);
+            } else {
+                newObj.push(deepCopy(obj[i]));
+            }
         }
     }
+    return newObj
 }
 
 const obj2 = {
@@ -50,6 +61,17 @@ const obj2 = {
     }]
 }
 
-console.log(deepCopy(obj2, temp))
+const target = {
+    field1: 1,
+    field2: undefined,
+    field3: {
+        child: 'child'
+    },
+    field4: [2, 4, 8],
+    empty: null,
+};
+
+
+console.log(JSON.stringify(deepCopy(target)))
 
 //https://juejin.cn/post/7211775653166219323
